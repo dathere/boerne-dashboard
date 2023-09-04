@@ -17,7 +17,7 @@ packages = c("rstudioapi", "readxl",
              "sf", "rgdal", "spData", "raster", "leaflet", "rmapshaper","geojsonio",
              "tidycensus", "jsonlite", "rvest", "purrr", "httr",
              "tidyverse", "lubridate", "plotly", "stringr", "rnoaa", "nhdplusTools",
-             "googlesheets4", "magrittr", "dplyr", "ckanr")
+             "googlesheets4", "magrittr", "dplyr", "ckanr","dataRetrieval","EGRET")
 
 ## Now load or install&load all
 package.check <- lapply(
@@ -30,9 +30,7 @@ package.check <- lapply(
   }
 )
 
-#usgs packages
-install.packages("dataRetrieval", repos=c("http://owi.usgs.gov/R", getOption("repos")))
-library(dataRetrieval);  library(EGRET); #usgs links
+
 
 ######################################################################################################################################################################
 
