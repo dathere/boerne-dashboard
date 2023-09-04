@@ -1,0 +1,36 @@
+name: R script workflow
+on: [push]
+
+
+jobs:
+  run_r_script:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Setup R
+      uses: r-lib/actions/setup-r@v1
+
+    - name: Decode Google Sheets token
+      env:
+        GSHEET_TOKEN: ${{ secrets.GSHEET_TOKEN }}
+      run: |
+        echo "$GSHEET_TOKEN" | base64 -d > gargle-oauth
+
+
+
+    - name: Install dependencies
+      run: Rscript boerne-water-supply/rcode/global0_set_apis_libraries.R
+
+    - name: Run R script
+      run: Rscript boerne-water-supply/rcode/use1_demand_data.R
+
+
+    - name: Commit and push if changes
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add *.csv 
+        git commit -m "Update data file" || echo "No changes to commit"
+        git push
