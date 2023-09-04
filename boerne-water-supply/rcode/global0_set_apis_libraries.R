@@ -13,11 +13,9 @@
 #
 ######################################################################################################################################################################
 ## First specify the packages of interest
-packages = c("rstudioapi", "readxl", 
-             "sf", "rgdal", "spData", "raster", "leaflet", "rmapshaper","geojsonio",
-             "tidycensus", "jsonlite", "rvest", "purrr", "httr",
-             "tidyverse", "lubridate", "plotly", "stringr", "rnoaa", "nhdplusTools",
-             "googlesheets4", "magrittr", "dplyr", "ckanr","dataRetrieval","EGRET")
+install.packages("sf", repos = "https://cloud.r-project.org/")
+
+packages = c( "sf")
 
 ## Now load or install&load all
 package.check <- lapply(
