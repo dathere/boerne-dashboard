@@ -6,7 +6,106 @@
 # Modified November 2021 by Vianey Rueda for Boerne
 #
 ###################################################################################################################################################
+#######################################################################################################################################################
+#
+# DOWNLOADS AND CREATES GEOJSON FILES FOR MAP LAYERS IN THE WATER SUPPLY DASHBOARD
+# CREATED BY LAUREN PATTERSON @ THE INTERNET OF WATER. 
+# FEBRUARY 2021
+# MODIFIED MAY 2021 BY SOPHIA BRYSON FOR TEXAS
+#
+########################################################################################################################################################
 
+
+######################################################################################################################################################################
+#
+#   SET GLOBAL VARIABLES
+#
+######################################################################################################################################################################
+options(scipen=999) #changes scientific notation to numeric
+rm(list=ls()) #removes anything stored in memory
+
+#set working directory
+
+# if working on a Windows use this to set working directory...
+#source_path = rstudioapi::getActiveDocumentContext()$path 
+#setwd(dirname(source_path))
+#swd_data <- paste0("..\\data\\")
+# if working on a Mac use this to set working directory...
+source_path = getwd()
+setwd(source_path)
+swd_data <-  paste0("../data//")
+
+
+#state info
+stateAbb <- "TX"
+stateFips <- 48
+
+
+#variables used to update data
+today = substr(Sys.time(),1,10); today;
+current.year <- year(today);
+
+start.date = "1990-01-01"; #set for the start of the period that we want to assess
+end.date = paste0(year(today), "-12-31")
+end.year = year(Sys.time())
+
+mymonths <- c("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"); #used below to convert numbers to abbrev
+
+#save out update date for dashboard
+update.date <- paste0(mymonths[month(today)]," ", day(today), ", ", end.year) %>% as.data.frame()
+colnames(update.date) <- "today_date"
+write.csv(update.date, paste0(swd_data, "update_date.csv"), row.names=FALSE)
+
+#calculate moving average function
+ma <- function(x,n=7){stats::filter(x,rep(1/n,n), sides=1)}
+
+#useful functions
+`%notin%` = function(x,y) !(x %in% y); #function to get what is not in the list
+
+#standardized reference for setting julian values (drops leap days)
+jan1 <- as.Date("2021-01-01")
+dec31 <- as.Date("2021-12-31")
+julian_index <- c(seq(jan1:dec31), "NA")
+all.dates <- seq(as.Date(jan1), as.Date(dec31), by = "days")
+day_month <- c(substr(all.dates,6,10), "NA")
+day_month_leap <- c(day_month[1:59], "02-29", day_month[60:365])
+julian_index_leap <- (1:366)
+
+julian <- as.data.frame(matrix(nrow=366))
+julian$day_month <- day_month; julian$julian_index <- julian_index
+julian$day_month_leap <- day_month_leap; julian$julian_index_leap <- julian_index_leap
+julian.ref <- julian %>% select(!V1)
+rm(jan1, dec31, julian_index, all.dates, day_month,day_month_leap, julian_index_leap, julian)
+
+
+
+
+
+library(sf)
+library(dplyr)
+library(lubridate)
+library(googlesheets4)
+library(mapview)
+library(rstudioapi)
+library(readxl)
+library(spData)
+library(rgdal)
+library(leaflet)
+library(rmapshaper)
+library(geojsonio)
+library(jsonlite)
+library(rvest)
+library(purrr)
+library(httr)
+library(tidyverse)
+library(lubridate)
+library(stringr)
+library(rnoaa)
+library(nhdplusTools)
+library(magrittr)
+library(ckanr)
+library(dataRetrieval)
+library(EGRET)
 
 #REFERENCE INFO
 #https://gost1.docs.apiary.io/#reference/odata-$filter
@@ -38,9 +137,9 @@ ma <- function(x,n=7){stats::filter(x,rep(1/n,n), sides=1)}
 # Read in new water demand data
 #
 #####################################################################################################################################################################
-gs4_auth(cache = "./gargle-oauth")
+gs4_deauth()  # De-authenticate any existing session
+gs4_auth(cache = "C:\\Users\\minha\\Downloads\\my_token")
 2
-
 demand_data <- read_sheet("https://docs.google.com/spreadsheets/d/1BKb9Q6UFEBNsGrLZhjdq2kKX5t1GqPFCWF553afUKUg/edit#gid=2030520898", sheet = 1, range = "A229:H", col_names = FALSE,col_types = "Dnnnnnnn")
 demand_by_source <- demand_data[, c("...1", "...2", "...3", "...6", "...7", "...8")]
 
@@ -72,15 +171,18 @@ for(i in 1:nrow(nx)) { #computationally slow. There's almost certainly a faster 
 }
 
 demand_by_mgd <- nx
-
 #split date by month and day
 demand_by_mgd = demand_by_mgd %>% 
-  mutate(date = ymd(date)) %>% 
-  mutate_at(vars(date), funs(year, month, day))
+  mutate(date = ymd(date),
+         year = year(date),
+         month = month(date),
+         day = day(date))
 
 demand_by_mgd$day <- as.numeric(demand_by_mgd$day)
 
 str(demand_by_mgd)
+
+
 
 new_demand_by_mgd <- demand_by_mgd %>% filter(year >= 2022 & date < today)
 new_demand_by_mgd$date <- format(as.Date(new_demand_by_mgd$date), "%Y-%m-%d") # make sure the date format is the same for old and new before binding
@@ -208,8 +310,16 @@ pop_data <- nxx
 
 #split date by month and day
 pop_data = pop_data %>% 
-  mutate(date = ymd(date)) %>% 
-  mutate_at(vars(date), funs(year, month, day))
+  mutate(date = ymd(date),
+         year = year(date),
+         month = month(date),
+         day = day(date))
+
+
+pop_data$day <- as.numeric(pop_data$day)
+
+
+
 
 #include pwsid
 pop_data$pwsid <- "TX300001"
@@ -227,3 +337,4 @@ write.csv(pop_data, paste0(swd_data, "demand/all_pop.csv"), row.names=FALSE)
 rm(list= ls()[!(ls() %in% c('julian.ref','update.date', 'current.month', 'current.year', 'end.date', 'end.year', 
                             'mymonths', 'source_path', 'start.date', 'state_fips', 'stateAbb', 'stateFips', 'swd_data', 'today', 
                             '%notin%', 'ma'))])
+
