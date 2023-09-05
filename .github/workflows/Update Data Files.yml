@@ -23,7 +23,7 @@ jobs:
 
     - name: Install dependencies
       run: |
-        install.packages(c("sf","rstudioapi", "readxl","rgdal", "spData", "raster", "leaflet", "rmapshaper","geojsonio", "tidycensus", "jsonlite", "rvest", "purrr", "httr","tidyverse", "lubridate", "plotly", "stringr", "rnoaa", "nhdplusTools", "googlesheets4", "magrittr", "dplyr", "ckanr","dataRetrieval","EGRET"))
+       Rscript -e 'install.packages(c("sf","rstudioapi", "readxl","rgdal", "spData", "raster", "leaflet", "rmapshaper","geojsonio", "tidycensus", "jsonlite", "rvest", "purrr", "httr","tidyverse", "lubridate", "plotly", "stringr", "rnoaa", "nhdplusTools", "googlesheets4", "magrittr", "dplyr", "ckanr","dataRetrieval","EGRET"))'
 
         
     - name: Run Config
