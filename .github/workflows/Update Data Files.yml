@@ -2,9 +2,12 @@ name: R script workflow
 on: [push]
 
 
+    
 jobs:
   run_r_script:
     runs-on: ubuntu-latest
+    container:
+      image: minhajuddin2510/rcode_files_update:latest
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
@@ -18,13 +21,9 @@ jobs:
       env:
         GSHEET_TOKEN: ${{ secrets.GSHEET_TOKEN }}
       run: |
-        echo "$GSHEET_TOKEN" | base64 -d > gargle-oauth
+        echo "$GSHEET_TOKEN" | base64 -d > /github/workspace/gargle-oauth
 
-
-    - name: Install dependencies
-      run: |
-       Rscript -e 'install.packages(c("sf","rstudioapi", "readxl","rgdal", "spData", "raster", "leaflet", "rmapshaper","geojsonio", "tidycensus", "jsonlite", "rvest", "purrr", "httr","tidyverse", "lubridate", "plotly", "stringr", "rnoaa", "nhdplusTools", "googlesheets4", "magrittr", "dplyr", "ckanr","dataRetrieval","EGRET"))'
-
+  
     - name: Run R script
       run: Rscript boerne-water-supply/rcode/use1_demand_data.R
 
