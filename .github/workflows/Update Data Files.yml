@@ -24,7 +24,9 @@ jobs:
       run: |
         echo "$GSHEET_TOKEN" | base64 -d > /github/workspace/gargle-oauth
 
-
+    - name: Install system dependencies for R packages
+      run: |
+        sudo apt-get install -y libudunits2-dev
   
     - name: Run R script
       run: Rscript boerne-water-supply/rcode/use1_demand_data.R
