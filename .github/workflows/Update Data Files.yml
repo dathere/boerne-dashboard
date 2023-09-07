@@ -13,16 +13,12 @@ jobs:
       uses: actions/checkout@v2
       with:
        ref: test
-
-    - name: Ensure workspace directory exists
-      run: |
-        mkdir -p /github/workspace/
     
     - name: Decode Google Sheets token
       env:
         GSHEET_TOKEN: ${{ secrets.GSHEET_TOKEN }}
       run: |
-        echo "$GSHEET_TOKEN" | base64 -d > /github/workspace/gargle-oauth
+        echo "$GSHEET_TOKEN" | base64 -d > boerne-water-supply/gargle-oauth
 
     - name: Install system dependencies for R packages
       run: |
