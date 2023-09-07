@@ -24,7 +24,6 @@ jobs:
         mkdir  boerne-water-supply/my_token
         echo "$GSHEET_TOKEN" | base64 -d > boerne-water-supply/my_token/gargle-oauth
         ls  boerne-water-supply/my_token/
-        chmod 644  boerne-water-supply/gargle-oauth
         
     - name: Install system dependencies for R packages
       run: |
