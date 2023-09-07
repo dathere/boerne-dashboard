@@ -58,7 +58,7 @@ rm(list=ls()) #removes anything stored in memory
 source_path = getwd()
 print(source_path)
 setwd(source_path)
-swd_data <-  paste0("/data/")
+swd_data <-  paste0("/boerne-water-supply/data/")
 
 
 #state info
