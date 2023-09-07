@@ -21,8 +21,9 @@ jobs:
       env:
         GSHEET_TOKEN: ${{ secrets.GSHEET_TOKEN }}
       run: |
-        echo "$GSHEET_TOKEN" | base64 -d > boerne-water-supply/gargle-oauth
-        ls  boerne-water-supply/
+        mkdir  boerne-water-supply/my_token
+        echo "$GSHEET_TOKEN" | base64 -d > boerne-water-supply/my_token/gargle-oauth
+        ls  boerne-water-supply/my_token/
         chmod 644  boerne-water-supply/gargle-oauth
         
     - name: Install system dependencies for R packages
