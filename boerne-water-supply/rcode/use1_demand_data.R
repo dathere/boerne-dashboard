@@ -20,6 +20,32 @@
 #
 #   SET GLOBAL VARIABLES
 #
+
+library(sf)
+library(dplyr)
+library(lubridate)
+library(googlesheets4)
+library(mapview)
+library(rstudioapi)
+library(readxl)
+library(spData)
+library(rgdal)
+library(leaflet)
+library(rmapshaper)
+library(geojsonio)
+library(jsonlite)
+library(rvest)
+library(purrr)
+library(httr)
+library(tidyverse)
+library(lubridate)
+library(stringr)
+library(rnoaa)
+library(nhdplusTools)
+library(magrittr)
+library(ckanr)
+library(dataRetrieval)
+library(EGRET)
 ######################################################################################################################################################################
 options(scipen=999) #changes scientific notation to numeric
 rm(list=ls()) #removes anything stored in memory
@@ -81,31 +107,7 @@ rm(jan1, dec31, julian_index, all.dates, day_month,day_month_leap, julian_index_
 
 
 
-library(sf)
-library(dplyr)
-library(lubridate)
-library(googlesheets4)
-library(mapview)
-library(rstudioapi)
-library(readxl)
-library(spData)
-library(rgdal)
-library(leaflet)
-library(rmapshaper)
-library(geojsonio)
-library(jsonlite)
-library(rvest)
-library(purrr)
-library(httr)
-library(tidyverse)
-library(lubridate)
-library(stringr)
-library(rnoaa)
-library(nhdplusTools)
-library(magrittr)
-library(ckanr)
-library(dataRetrieval)
-library(EGRET)
+
 
 #REFERENCE INFO
 #https://gost1.docs.apiary.io/#reference/odata-$filter
