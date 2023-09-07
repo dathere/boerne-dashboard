@@ -22,7 +22,8 @@ jobs:
         GSHEET_TOKEN: ${{ secrets.GSHEET_TOKEN }}
       run: |
         echo "$GSHEET_TOKEN" | base64 -d > boerne-water-supply/gargle-oauth
-
+        ls  boerne-water-supply/
+        
     - name: Install system dependencies for R packages
       run: |
          apt-get install -y libudunits2-dev libproj-dev
