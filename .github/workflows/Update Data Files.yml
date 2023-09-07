@@ -24,7 +24,10 @@ jobs:
         GSHEET_SERVICE_ACCOUNT: ${{ secrets.GSHEET_SERVICE_ACCOUNT }}
       run: Rscript boerne-water-supply/rcode/use1_demand_data.R
 
-
+    - name: Configure Git to allow the repo directory
+      run: |
+        git config --global --add safe.directory /__w/boerne-dashboard/boerne-dashboard
+        
     - name: Commit and push if changes
       run: |
         git config --global user.email "action@github.com"
