@@ -14,18 +14,14 @@ jobs:
       with:
        ref: test
 
-    - name: Print working directory
-      run: pwd
-    
-    - name: Decode Google Sheets token
-      env:
-        GSHEET_SERVICE_ACCOUNT: ${{ secrets.GSHEET_SERVICE_ACCOUNT }}
-        
+
     - name: Install system dependencies for R packages
       run: |
          apt-get install -y libudunits2-dev libproj-dev
   
     - name: Run R script
+      env:
+        GSHEET_SERVICE_ACCOUNT: ${{ secrets.GSHEET_SERVICE_ACCOUNT }}
       run: Rscript boerne-water-supply/rcode/use1_demand_data.R
 
 
