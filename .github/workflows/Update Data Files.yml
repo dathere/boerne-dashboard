@@ -19,11 +19,7 @@ jobs:
     
     - name: Decode Google Sheets token
       env:
-        GSHEET_TOKEN: ${{ secrets.GSHEET_TOKEN }}
-      run: |
-        mkdir  boerne-water-supply/my_token
-        echo "$GSHEET_TOKEN" | base64 -d > boerne-water-supply/my_token/gargle-oauth
-        ls  boerne-water-supply/my_token/
+        GSHEET_SERVICE_ACCOUNT: ${{ secrets.GSHEET_SERVICE_ACCOUNT }}
         
     - name: Install system dependencies for R packages
       run: |
