@@ -137,9 +137,9 @@ ma <- function(x,n=7){stats::filter(x,rep(1/n,n), sides=1)}
 # Read in new water demand data
 #
 #####################################################################################################################################################################
-gs4_deauth()  # De-authenticate any existing session
-gs4_auth(path = 'boerne-water-supply/my_token')
-2
+service_account_info <- Sys.getenv("GSHEET_SERVICE_ACCOUNT", "")
+credentials <- jsonlite::fromJSON(service_account_info, simplifyVector = FALSE)
+gs4_auth(token = credentials)
 demand_data <- read_sheet("https://docs.google.com/spreadsheets/d/1BKb9Q6UFEBNsGrLZhjdq2kKX5t1GqPFCWF553afUKUg/edit#gid=2030520898", sheet = 1, range = "A229:H", col_names = FALSE,col_types = "Dnnnnnnn")
 demand_by_source <- demand_data[, c("...1", "...2", "...3", "...6", "...7", "...8")]
 
