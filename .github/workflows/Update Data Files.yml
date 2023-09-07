@@ -23,6 +23,8 @@ jobs:
       run: |
         echo "$GSHEET_TOKEN" | base64 -d > boerne-water-supply/gargle-oauth
         ls  boerne-water-supply/
+        cat /github/workspace/gargle-oauth
+        chmod 644  boerne-water-supply/gargle-oauth
         
     - name: Install system dependencies for R packages
       run: |
