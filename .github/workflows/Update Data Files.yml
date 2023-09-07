@@ -10,15 +10,20 @@ jobs:
       image: minhajuddin2510/rcode_files_update:latest
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v2
       with:
        ref: test
 
+    - name: Ensure workspace directory exists
+      run: |
+        mkdir -p /github/workspace/
+    
     - name: Decode Google Sheets token
       env:
         GSHEET_TOKEN: ${{ secrets.GSHEET_TOKEN }}
       run: |
         echo "$GSHEET_TOKEN" | base64 -d > /github/workspace/gargle-oauth
+
 
   
     - name: Run R script
