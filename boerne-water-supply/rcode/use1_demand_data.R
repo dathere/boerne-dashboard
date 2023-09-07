@@ -56,6 +56,7 @@ rm(list=ls()) #removes anything stored in memory
 #swd_data <- paste0("..\\data\\")
 # if working on a Mac use this to set working directory...
 source_path = getwd()
+print(source_path)
 setwd(source_path)
 swd_data <-  paste0("../data/")
 
