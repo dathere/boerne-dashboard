@@ -24,6 +24,7 @@
 #
 #   SET GLOBAL VARIABLES
 #
+install.packages('mapview')
 library(mapview)
 library(sf)
 library(dplyr)
