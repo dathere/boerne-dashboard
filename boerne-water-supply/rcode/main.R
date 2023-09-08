@@ -1909,7 +1909,7 @@ rm(list= ls()[!(ls() %in% c('julian.ref','update.date', 'current.month', 'curren
 #   Load old data
 #
 ######################################################################################################################################################################
-old.data <- read.csv(paste0(swd_data, "quality/boerne_water_quality.csv"))
+old.data <- read.csv(paste0(swd_data, "quality/historic_water_quality.csv"))
 boerne_quality_sites <- read_sf(paste0(swd_data, "quality/water_quality_sites.geojson"))
 
 ######################################################################################################################################################################
@@ -1956,7 +1956,7 @@ new_boerne_data <- boerne_data %>% filter(year >= 2022)
 all_boerne_data <- rbind(old.data, new_boerne_data)
 
 #save out
-write.csv(all_boerne_data, paste0(swd_data, "quality/all_boerne_water_quality.csv"), row.names=FALSE)
+write.csv(all_boerne_data, paste0(swd_data, "quality/all_quality.csv"), row.names=FALSE)
 
 ################################################################################################################################################################
 # remove all except for global environment 
