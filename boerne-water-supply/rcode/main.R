@@ -651,7 +651,7 @@ rm(list= ls()[!(ls() %in% c('julian.ref','update.date', 'current.month', 'curren
 #
 ################################################################################################################################################
 # current drought
-setwd(swd_data)
+
 download.file("https://droughtmonitor.unl.edu/data/shapefiles_m/USDM_current_M.zip", destfile="temp.zip")
 
 # Unzip this file. You can do it with R (as below), or clicking on the object you downloaded.
@@ -1906,7 +1906,6 @@ writeLines(service_account_info, temp_file)
 
 # Authenticate using the temporary JSON file
 gs4_auth(path = temp_file)
-
 all_quality_data <- read_sheet("https://docs.google.com/spreadsheets/d/1JAQLzSpbU2nMVb4Pe1XUA2lxU3a1XcY4oUYS8UhIaiA/edit#gid=826381059", col_types = "ccccnnnDTnnncnnnnnnnnn")
 
 #filter for relevant sites
@@ -1914,10 +1913,10 @@ boerne_data <- all_quality_data %>% filter(Name %in% c("12600", "15126", "20823"
 
 #rename columns
 boerne_data <- rename(boerne_data, site_id = Name, name = Description, basin = Basin, county = County, latitude = Latitude, longitude = Longitude, 
-                      stream_segment = `Stream Segment`, date = `Sample Date`, sample_depth = `Sample Depth (m)`, flow_severity = `Flow Severity`, 
+                      stream_segment = `TCEQ Stream Segment`, date = `Sample Date`, sample_depth = `Sample Depth (m)`, flow_severity = `Flow Severity`, 
                       conductivity = `Conductivity (µs/cm)`, dissolved_oxygen = `Dissolved Oxygent (mg/L)`, air_temp = `Air Temperature (°C)`, 
                       water_temp = `Water Temperature (°C)`, ecoli_avg = `E. Coli Average`, secchi_disk_transparency = `Secchi Disk Transparency (m)`,
-                      nitrate_nitrogen = `Nitrate-Nitrogen (mg/L or ppm)`)
+                      nitrate_nitrogen = `Nitrate-Nitrogen (ppm or mg/L)`)
 
 #filter for relevant data
 boerne_data <- boerne_data[-c(9,11:12,21)]
@@ -1934,7 +1933,7 @@ new_boerne_data <- boerne_data %>% filter(year >= 2022)
 all_boerne_data <- rbind(old.data, new_boerne_data)
 
 #save out
-write.csv(all_boerne_data, paste0(swd_data, "quality/all_quality.csv"), row.names=FALSE)
+write.csv(all_boerne_data, paste0(swd_data, "quality/all_water_quality.csv"), row.names=FALSE)
 
 ################################################################################################################################################################
 # remove all except for global environment 
