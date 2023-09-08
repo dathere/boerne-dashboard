@@ -747,16 +747,93 @@
 "15126","Cibolo Creek @ Menger Creek","San Antonio","Kendall",29.775,-98.70917,1908,"19068",0.24,"Low",8,797,5.8,14.5,15.5,NA,NA,NA,2022
 "15126","Cibolo Creek @ Menger Creek","San Antonio","Kendall",29.775,-98.70917,1908,"19068",0.24,NA,NA,NA,NA,NA,NA,NA,NA,0.158,2022
 "15126","Cibolo Creek @ Menger Creek","San Antonio","Kendall",29.775,-98.70917,1908,"19068",0.24,"Low",NA,NA,NA,NA,NA,110,NA,NA,2022
+"15126","Cibolo Creek @ Menger Creek","San Antonio","Kendall",29.775,-98.70917,1908,"19103",0.08,"Low",7,887,3.8,24,0.22,NA,NA,NA,2022
+"15126","Cibolo Creek @ Menger Creek","San Antonio","Kendall",29.775,-98.70917,1908,"19103",0.08,NA,NA,NA,NA,NA,NA,NA,NA,6.97,2022
+"15126","Cibolo Creek @ Menger Creek","San Antonio","Kendall",29.775,-98.70917,1908,"19135",0.07,"Low",8,869,4,23,24,NA,NA,NA,2022
+"15126","Cibolo Creek @ Menger Creek","San Antonio","Kendall",29.775,-98.70917,1908,"19135",0.07,NA,NA,NA,NA,NA,NA,NA,NA,4.04,2022
+"15126","Cibolo Creek @ Menger Creek","San Antonio","Kendall",29.775,-98.70917,1908,"19160",0.07,"Low",8.4,954,4.4,24.5,24,NA,NA,NA,2022
+"15126","Cibolo Creek @ Menger Creek","San Antonio","Kendall",29.775,-98.70917,1908,"19160",0.07,"Low",NA,NA,NA,NA,NA,NA,NA,1.18,2022
+"15126","Cibolo Creek @ Menger Creek","San Antonio","Kendall",29.775,-98.70917,1908,"19160",0.1,"Low",NA,NA,NA,NA,NA,90,NA,NA,2022
+"15126","Cibolo Creek @ Menger Creek","San Antonio","Kendall",29.775,-98.70917,1908,"19194",0.16,"Low",8,818,4.05,26,26,NA,NA,NA,2022
+"15126","Cibolo Creek @ Menger Creek","San Antonio","Kendall",29.775,-98.70917,1908,"19194",0.16,"Low",NA,NA,NA,NA,NA,NA,NA,10.6,2022
+"15126","Cibolo Creek @ Menger Creek","San Antonio","Kendall",29.775,-98.70917,1908,"19223",0.1,"Low",8.5,1012,4.8,26,25,NA,NA,NA,2022
+"15126","Cibolo Creek @ Menger Creek","San Antonio","Kendall",29.775,-98.70917,1908,"19250",0.08,"Low",8,990,5.4,23,22,NA,NA,NA,2022
+"15126","Cibolo Creek @ Menger Creek","San Antonio","Kendall",29.775,-98.70917,1908,"19250",0.08,NA,NA,NA,NA,NA,NA,60,NA,NA,2022
+"15126","Cibolo Creek @ Menger Creek","San Antonio","Kendall",29.775,-98.70917,1908,"19285",0.12,"Low",8,1113,6.2,17,15,NA,NA,NA,2022
+"15126","Cibolo Creek @ Menger Creek","San Antonio","Kendall",29.775,-98.70917,1908,"19313",0.08,"Low",8,1107,7.3,9,15,NA,NA,NA,2022
+"15126","Cibolo Creek @ Menger Creek","San Antonio","Kendall",29.775,-98.70917,1908,"19340",0.08,"Low",8,949,4.6,16,15,NA,NA,NA,2022
 "20823","Upper Cibolo Creek @ River Road Park","San Antonio","Kendall",29.78931,-98.72455,1908,"19068",0.3,"Normal",7.7,580,7.6,15,19.8,NA,NA,NA,2022
 "20823","Upper Cibolo Creek @ River Road Park","San Antonio","Kendall",29.78931,-98.72455,1908,"19068",0.3,"Normal",NA,NA,NA,NA,NA,60,NA,NA,2022
+"20823","Upper Cibolo Creek @ River Road Park","San Antonio","Kendall",29.78931,-98.72455,1908,"19103",0.21,"No flow",7,910,4,22,22,NA,NA,NA,2022
+"20823","Upper Cibolo Creek @ River Road Park","San Antonio","Kendall",29.78931,-98.72455,1908,"19103",0.21,NA,NA,NA,NA,NA,NA,NA,NA,0.082,2022
+"20823","Upper Cibolo Creek @ River Road Park","San Antonio","Kendall",29.78931,-98.72455,1908,"19131",0.3,"No flow",7.8,474,7,23.5,25,NA,NA,NA,2022
+"20823","Upper Cibolo Creek @ River Road Park","San Antonio","Kendall",29.78931,-98.72455,1908,"19194",0,"No flow",0,NA,NA,0,0,NA,NA,NA,2022
+"20823","Upper Cibolo Creek @ River Road Park","San Antonio","Kendall",29.78931,-98.72455,1908,"19223",0,"No flow",0,NA,NA,25,0,NA,NA,NA,2022
+"20823","Upper Cibolo Creek @ River Road Park","San Antonio","Kendall",29.78931,-98.72455,1908,"19250",0,"No flow",0,NA,NA,24,0,NA,NA,NA,2022
+"20823","Upper Cibolo Creek @ River Road Park","San Antonio","Kendall",29.78931,-98.72455,1908,"19285",0,"No flow",0,NA,NA,16.5,0,NA,NA,NA,2022
+"20823","Upper Cibolo Creek @ River Road Park","San Antonio","Kendall",29.78931,-98.72455,1908,"19313",0,NA,0,NA,NA,0,0,NA,NA,NA,2022
 "80230","Guadalupe River Immediately Below Canyon Lake Dam","Guadalupe","Comal",29.87,-98.19306,1812,"19004",0.33,"Low",9.1,395,8.4,16.5,14.8,NA,NA,NA,2022
 "80230","Guadalupe River Immediately Below Canyon Lake Dam","Guadalupe","Comal",29.87,-98.19306,1812,"19032",0.33,"Low",9.5,368,0,16.7,12.4,NA,NA,NA,2022
 "80230","Guadalupe River Immediately Below Canyon Lake Dam","Guadalupe","Comal",29.87,-98.19306,1812,"19060",0.33,"Low",8.65,780,9.6,18.5,12.7,NA,NA,NA,2022
+"80230","Guadalupe River Immediately Below Canyon Lake Dam","Guadalupe","Comal",29.87,-98.19306,1812,"19095",0.33,"Low",8.3,435,7.95,30.8,15,NA,NA,NA,2022
+"80230","Guadalupe River Immediately Below Canyon Lake Dam","Guadalupe","Comal",29.87,-98.19306,1812,"19123",0.33,"Low",8.4,395,7.16,30.2,16.1,NA,NA,NA,2022
+"80230","Guadalupe River Immediately Below Canyon Lake Dam","Guadalupe","Comal",29.87,-98.19306,1812,"19165",33,"Low",8.8,367,7.5,28.1,15.6,NA,NA,NA,2022
+"80230","Guadalupe River Immediately Below Canyon Lake Dam","Guadalupe","Comal",29.87,-98.19306,1812,"19187",0.33,"Low",9.1,355,6.3,29.7,16.1,NA,NA,NA,2022
+"80230","Guadalupe River Immediately Below Canyon Lake Dam","Guadalupe","Comal",29.87,-98.19306,1812,"19229",0.33,"Normal",8.6,328,6.8,24.6,15.6,NA,NA,NA,2022
+"80230","Guadalupe River Immediately Below Canyon Lake Dam","Guadalupe","Comal",29.87,-98.19306,1812,"19254",0.33,"Low",8.2,374,6.2,30.4,16,NA,NA,NA,2022
+"80230","Guadalupe River Immediately Below Canyon Lake Dam","Guadalupe","Comal",29.87,-98.19306,1812,"19277",0.33,"Low",9.2,248,8.2,21.1,15.4,NA,NA,NA,2022
+"80230","Guadalupe River Immediately Below Canyon Lake Dam","Guadalupe","Comal",29.87,-98.19306,1812,"19305",0.33,"Low",8.98,398,9.02,25.2,15.9,NA,NA,NA,2022
+"80230","Guadalupe River Immediately Below Canyon Lake Dam","Guadalupe","Comal",29.87,-98.19306,1812,"19340",0.33,"Low",8.8,374,9,18.6,15.4,NA,NA,NA,2022
+"80904","Cibolo Creek Upstream Of Boerne Lake","San Antonio","Kendall",29.82676,-98.80061,1908,"19019",0.3,"Low",8.25,430,9.2,12,10,NA,NA,NA,2022
+"80904","Cibolo Creek Upstream Of Boerne Lake","San Antonio","Kendall",29.82676,-98.80061,1908,"19040",0.08,"Normal",7.8,400,10.15,19,16,NA,NA,NA,2022
+"80904","Cibolo Creek Upstream Of Boerne Lake","San Antonio","Kendall",29.82676,-98.80061,1908,"19068",0.3,"Low",8,380,8.2,16,15,NA,NA,NA,2022
+"80904","Cibolo Creek Upstream Of Boerne Lake","San Antonio","Kendall",29.82676,-98.80061,1908,"19103",0.08,"Low",7.7,370,5.25,24,23,NA,NA,NA,2022
+"80904","Cibolo Creek Upstream Of Boerne Lake","San Antonio","Kendall",29.82676,-98.80061,1908,"19131",0.3,"Low",8,340,4.2,22,24,NA,NA,NA,2022
+"80904","Cibolo Creek Upstream Of Boerne Lake","San Antonio","Kendall",29.82676,-98.80061,1908,"19194",0.3,"No flow",8.25,310,3,25.5,28,NA,NA,NA,2022
 "80966","Currey Creek @ Boerne Wwtp Effluent Outfall","San Antonio","Kendall",29.78837,-98.71394,1908,"19041",0.58,"Normal",7.5,956,6.8,2.5,14,NA,NA,NA,2022
 "80966","Currey Creek @ Boerne Wwtp Effluent Outfall","San Antonio","Kendall",29.78837,-98.71394,1908,"19041",0.58,NA,NA,NA,NA,NA,NA,NA,NA,0.136,2022
 "80966","Currey Creek @ Boerne Wwtp Effluent Outfall","San Antonio","Kendall",29.78837,-98.71394,1908,"19068",0.55,"Normal",8,909,6.2,19,21.5,NA,NA,NA,2022
 "80966","Currey Creek @ Boerne Wwtp Effluent Outfall","San Antonio","Kendall",29.78837,-98.71394,1908,"19068",0.55,NA,NA,NA,NA,NA,NA,NA,NA,NA,2022
 "80966","Currey Creek @ Boerne Wwtp Effluent Outfall","San Antonio","Kendall",29.78837,-98.71394,1908,"19068",0.55,NA,NA,NA,NA,NA,NA,220,NA,NA,2022
+"80966","Currey Creek @ Boerne Wwtp Effluent Outfall","San Antonio","Kendall",29.78837,-98.71394,1908,"19103",0.16,"Normal",7,1041,5.5,24,24,NA,NA,NA,2022
+"80966","Currey Creek @ Boerne Wwtp Effluent Outfall","San Antonio","Kendall",29.78837,-98.71394,1908,"19103",0.16,NA,NA,NA,NA,NA,NA,NA,NA,NA,2022
+"80966","Currey Creek @ Boerne Wwtp Effluent Outfall","San Antonio","Kendall",29.78837,-98.71394,1908,"19135",0.14,"Normal",8.5,1019,5.2,20,24,NA,NA,NA,2022
+"80966","Currey Creek @ Boerne Wwtp Effluent Outfall","San Antonio","Kendall",29.78837,-98.71394,1908,"19135",0.14,NA,NA,NA,NA,NA,NA,NA,NA,7.77,2022
+"80966","Currey Creek @ Boerne Wwtp Effluent Outfall","San Antonio","Kendall",29.78837,-98.71394,1908,"19160",0.3,"Low",8,1041,5.3,27,26,NA,NA,NA,2022
+"80966","Currey Creek @ Boerne Wwtp Effluent Outfall","San Antonio","Kendall",29.78837,-98.71394,1908,"19160",0.3,"Normal",NA,NA,NA,NA,NA,NA,NA,1.98,2022
+"80966","Currey Creek @ Boerne Wwtp Effluent Outfall","San Antonio","Kendall",29.78837,-98.71394,1908,"19160",0.15,"Normal",NA,NA,NA,NA,NA,150,NA,NA,2022
+"80966","Currey Creek @ Boerne Wwtp Effluent Outfall","San Antonio","Kendall",29.78837,-98.71394,1908,"19194",0.25,"Normal",7.8,1000,4.9,25.5,27.5,NA,NA,NA,2022
+"80966","Currey Creek @ Boerne Wwtp Effluent Outfall","San Antonio","Kendall",29.78837,-98.71394,1908,"19194",0.25,"Normal",NA,NA,NA,NA,NA,NA,NA,13.2,2022
+"80966","Currey Creek @ Boerne Wwtp Effluent Outfall","San Antonio","Kendall",29.78837,-98.71394,1908,"19223",0.3,"Normal",8.5,1055,4.9,24.5,26.5,NA,NA,NA,2022
+"80966","Currey Creek @ Boerne Wwtp Effluent Outfall","San Antonio","Kendall",29.78837,-98.71394,1908,"19250",0.3,"Normal",7.8,1052,4.7,23.5,26.5,NA,NA,NA,2022
+"80966","Currey Creek @ Boerne Wwtp Effluent Outfall","San Antonio","Kendall",29.78837,-98.71394,1908,"19250",0.3,NA,NA,NA,NA,NA,NA,10,NA,NA,2022
+"80966","Currey Creek @ Boerne Wwtp Effluent Outfall","San Antonio","Kendall",29.78837,-98.71394,1908,"19285",0.3,"Normal",8.1,1077,6,16.5,22,NA,NA,NA,2022
+"80966","Currey Creek @ Boerne Wwtp Effluent Outfall","San Antonio","Kendall",29.78837,-98.71394,1908,"19313",0.3,"Normal",8,1066,NA,12,18,NA,NA,NA,2022
 "81596","Menger Creek Bridge @ Herff Road Near Main Street","San Antonio","Kendall",29.77626,-98.72302,NA,"19012",1,"Normal",7.3,440,9.25,0,6,NA,NA,NA,2022
 "81596","Menger Creek Bridge @ Herff Road Near Main Street","San Antonio","Kendall",29.77626,-98.72302,NA,"19045",1,"Normal",7.2,390,6.7,19,16,NA,NA,NA,2022
 "81596","Menger Creek Bridge @ Herff Road Near Main Street","San Antonio","Kendall",29.77626,-98.72302,NA,"19072",1,"Normal",7.1,360,6.5,16,18,NA,NA,NA,2022
+"81596","Menger Creek Bridge @ Herff Road Near Main Street","San Antonio","Kendall",29.77626,-98.72302,NA,"19100",0.6,"Normal",6.9,NA,4.85,17,20,NA,NA,NA,2022
+"81596","Menger Creek Bridge @ Herff Road Near Main Street","San Antonio","Kendall",29.77626,-98.72302,NA,"19163",0.1,"No flow",6.3,400,2.5,22,24,NA,NA,NA,2022
+"81671","Guadalupe River Below Canyon Dam","Guadalupe","Comal",29.867726,-98.183154,1812,"18998",0.33,"Normal",7.3,433,8.15,6.5,11.5,NA,NA,NA,2022
+"81671","Guadalupe River Below Canyon Dam","Guadalupe","Comal",29.867726,-98.183154,1812,"19055",0.3,"Low",7.5,405,8.5,16,13,NA,NA,NA,2022
+"81671","Guadalupe River Below Canyon Dam","Guadalupe","Comal",29.867726,-98.183154,1812,"19083",0.3,"Low",7.5,390,9.3,17.5,14.3,NA,NA,NA,2022
+"81671","Guadalupe River Below Canyon Dam","Guadalupe","Comal",29.867726,-98.183154,1812,"19111",0.3,"Low",7.3,399,8.45,20.5,15.6,NA,NA,NA,2022
+"81671","Guadalupe River Below Canyon Dam","Guadalupe","Comal",29.867726,-98.183154,1812,"19139",0.3,"Low",7.5,418,8.4,23,17.5,NA,NA,NA,2022
+"81671","Guadalupe River Below Canyon Dam","Guadalupe","Comal",29.867726,-98.183154,1812,"19166",0.3,"Low",7.5,405,8.65,25,16.9,NA,NA,NA,2022
+"81671","Guadalupe River Below Canyon Dam","Guadalupe","Comal",29.867726,-98.183154,1812,"19196",0.3,"Low",7.5,408,8,24.5,16.9,NA,NA,NA,2022
+"81671","Guadalupe River Below Canyon Dam","Guadalupe","Comal",29.867726,-98.183154,1812,"19251",0.3,"Low",7.8,399,8.6,23,16.9,NA,NA,NA,2022
+"81671","Guadalupe River Below Canyon Dam","Guadalupe","Comal",29.867726,-98.183154,1812,"19278",0.3,"Low",7.5,393,8.45,19,16,NA,NA,NA,2022
+"81671","Guadalupe River Below Canyon Dam","Guadalupe","Comal",29.867726,-98.183154,1812,"19306",0.3,"Low",7.5,409,7.9,21,17,NA,NA,NA,2022
+"81671","Guadalupe River Below Canyon Dam","Guadalupe","Comal",29.867726,-98.183154,1812,"19334",0.3,"Low",7.5,399,8.4,20,17.2,NA,NA,NA,2022
+"81672","Guadalupe River 4Th Crossing","Guadalupe","Comal",29.842724,-98.168049,1812,"18998",0.33,"Normal",7.5,451,8.1,1,10.3,NA,NA,NA,2022
+"81672","Guadalupe River 4Th Crossing","Guadalupe","Comal",29.842724,-98.168049,1812,"19055",0.3,"Low",0,434,6.5,17,15.8,NA,NA,NA,2022
+"81672","Guadalupe River 4Th Crossing","Guadalupe","Comal",29.842724,-98.168049,1812,"19083",0.3,"Low",7.5,422,8,18.5,16.4,NA,NA,NA,2022
+"81672","Guadalupe River 4Th Crossing","Guadalupe","Comal",29.842724,-98.168049,1812,"19111",0.3,"Low",7.5,422,6.95,20.5,19.4,NA,NA,NA,2022
+"81672","Guadalupe River 4Th Crossing","Guadalupe","Comal",29.842724,-98.168049,1812,"19139",0.3,"Low",7.5,432,6.3,20.5,19.8,NA,NA,NA,2022
+"81672","Guadalupe River 4Th Crossing","Guadalupe","Comal",29.842724,-98.168049,1812,"19166",0.3,"Low",7.5,417,6.75,23.3,21.2,NA,NA,NA,2022
+"81672","Guadalupe River 4Th Crossing","Guadalupe","Comal",29.842724,-98.168049,1812,"19196",0.3,"Low",7.5,415,6.4,25.5,22.1,NA,NA,NA,2022
+"81672","Guadalupe River 4Th Crossing","Guadalupe","Comal",29.842724,-98.168049,1812,"19251",0.3,"Low",7.5,414,7.5,25,20.1,NA,NA,NA,2022
+"81672","Guadalupe River 4Th Crossing","Guadalupe","Comal",29.842724,-98.168049,1812,"19278",0.3,"Low",7.5,396,7.5,18.5,17.7,NA,NA,NA,2022
+"81672","Guadalupe River 4Th Crossing","Guadalupe","Comal",29.842724,-98.168049,1812,"19286",0.3,"Low",7.5,990,7.1,14,18.5,NA,NA,NA,2022
+"81672","Guadalupe River 4Th Crossing","Guadalupe","Comal",29.842724,-98.168049,1812,"19306",0.3,"Low",7.5,411,7.1,21.5,18.7,NA,NA,NA,2022
+"81672","Guadalupe River 4Th Crossing","Guadalupe","Comal",29.842724,-98.168049,1812,"19334",0.3,"Low",7.5,413,7,20,19.4,NA,NA,NA,2022
