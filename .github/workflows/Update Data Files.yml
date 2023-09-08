@@ -22,7 +22,7 @@ jobs:
     - name: Run R script
       env:
         GSHEET_SERVICE_ACCOUNT: ${{ secrets.GSHEET_SERVICE_ACCOUNT }}
-      run: Rscript boerne-water-supply/rcode/use1_demand_data.R
+      run: Rscript boerne-water-supply/rcode/main.R
 
     - name: Configure Git to allow the repo directory
       run: |
