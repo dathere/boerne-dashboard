@@ -24,7 +24,7 @@
 #
 #   SET GLOBAL VARIABLES
 #
-
+library(mapview)
 library(sf)
 library(dplyr)
 library(lubridate)
