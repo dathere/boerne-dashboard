@@ -24,7 +24,9 @@
 #
 #   SET GLOBAL VARIABLES
 #
+install.packages('raster')
 install.packages('mapview')
+library(raster)
 library(mapview)
 library(sf)
 library(dplyr)
