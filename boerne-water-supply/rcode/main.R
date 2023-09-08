@@ -20,33 +20,34 @@
 #   LOAD LIBRARIES
 #
 ######################################################################################################################################################################
-## First specify the packages of interest
-packages = c("rstudioapi", "readxl", 
-             "sf", "rgdal", "spData", "raster", "leaflet", "rmapshaper","geojsonio",
-             "tidycensus", "jsonlite", "rvest", "purrr", "httr",
-             "tidyverse", "lubridate", "plotly", "stringr", "rnoaa", "nhdplusTools",
-             "googlesheets4", "magrittr", "dplyr", "ckanr","dataRetrieval","EGRET")
-
-## Now load or install&load all
-package.check <- lapply(
-  packages,
-  FUN = function(x) {
-    if (!require(x, character.only = TRUE)) {
-      install.packages(x, dependencies = TRUE)
-      library(x, character.only = TRUE)
-    }
-  }
-)
-
-#usgs packages
-
-######################################################################################################################################################################
-
-
 ######################################################################################################################################################################
 #
 #   SET GLOBAL VARIABLES
 #
+
+library(sf)
+library(dplyr)
+library(lubridate)
+library(googlesheets4)
+library(readxl)
+library(spData)
+library(rgdal)
+library(leaflet)
+library(rmapshaper)
+library(geojsonio)
+library(jsonlite)
+library(rvest)
+library(purrr)
+library(httr)
+library(tidyverse)
+library(lubridate)
+library(stringr)
+library(rnoaa)
+library(nhdplusTools)
+library(magrittr)
+library(ckanr)
+library(dataRetrieval)
+library(EGRET)
 ######################################################################################################################################################################
 options(scipen=999) #changes scientific notation to numeric
 rm(list=ls()) #removes anything stored in memory
@@ -59,6 +60,7 @@ rm(list=ls()) #removes anything stored in memory
 #swd_data <- paste0("..\\data\\")
 # if working on a Mac use this to set working directory...
 source_path = getwd()
+print(source_path)
 swd_data <-  paste0("boerne-water-supply/data/")
 
 
@@ -107,31 +109,7 @@ rm(jan1, dec31, julian_index, all.dates, day_month,day_month_leap, julian_index_
 
 
 
-library(sf)
-library(dplyr)
-library(lubridate)
-library(googlesheets4)
-library(mapview)
-library(rstudioapi)
-library(readxl)
-library(spData)
-library(rgdal)
-library(leaflet)
-library(rmapshaper)
-library(geojsonio)
-library(jsonlite)
-library(rvest)
-library(purrr)
-library(httr)
-library(tidyverse)
-library(lubridate)
-library(stringr)
-library(rnoaa)
-library(nhdplusTools)
-library(magrittr)
-library(ckanr)
-library(dataRetrieval)
-library(EGRET)
+
 
 #REFERENCE INFO
 #https://gost1.docs.apiary.io/#reference/odata-$filter
