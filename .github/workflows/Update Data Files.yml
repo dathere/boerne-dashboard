@@ -23,7 +23,11 @@ jobs:
     - name: Run R script
       env:
         GSHEET_SERVICE_ACCOUNT: ${{ secrets.GSHEET_SERVICE_ACCOUNT }}
-      run: Rscript boerne-water-supply/rcode/main.R
+      uses: nick-fields/retry@v2
+      with:
+        timeout_minutes: 10
+        max_attempts: 3
+        command: Rscript boerne-water-supply/rcode/main.R
 
     - name: Configure Git to allow the repo directory
       run: |
