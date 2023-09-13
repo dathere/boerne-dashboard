@@ -23,7 +23,7 @@ jobs:
         GSHEET_SERVICE_ACCOUNT: ${{ secrets.GSHEET_SERVICE_ACCOUNT }}
       uses: nick-fields/retry@v2
       with:
-        timeout_minutes: 10
+        timeout_minutes: 30
         max_attempts: 3
         command: Rscript boerne-water-supply/rcode/main.R
 
