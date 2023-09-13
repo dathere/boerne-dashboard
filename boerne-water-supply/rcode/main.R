@@ -986,8 +986,10 @@ RAWS <- c("GUPT2")
 
 # loop through sites and pull data
 for(i in 1:length(site.ids)) {
-  api.url <- paste0(base.pcp.url, site.ids[i], url_time_start, url_time_end, addl.pars.url, url_token)
-  api.return <- fromJSON(api.url, flatten = TRUE)
+  full_url2 <- paste0(base.pcp.url, site.ids[i], url_time_start, url_time_end, addl.pars.url, url_token)
+  req <- httr::GET(full_url2, timeout(1500000))
+  json <- httr::content(req, as = "text")
+  api.return <- fromJSON(json, flatten = TRUE)
   api.station <- api.return$STATION
   api.station.metadata <- subset(api.station, select=-c(16:24))
   api.station.data <- subset(api.station, select=c(22:24))
