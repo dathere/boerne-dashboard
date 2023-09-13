@@ -661,7 +661,7 @@ download.file("https://droughtmonitor.unl.edu/data/shapefiles_m/USDM_current_M.z
 unzip("temp.zip", files=NULL, exdir="temp")
 
 #get day
-d <- today; 
+d <- today()-1; 
 d <- as.Date(d)
 prev.days <- seq(d-7,d,by='day');  
 d <- prev.days[weekdays(prev.days)=='Tuesday'][1] 
@@ -941,7 +941,7 @@ current.year <-year(today);
 
 # Base URL & station ID list for API calls: 
 base.pcp.url <- "https://api.synopticdata.com/v2/stations/timeseries?stid=" #this is same for all sites
-site.ids <- c("cict2", "twb03", "gubt2", "gbft2", "gbkt2", "gbjt2",
+site.ids <- c("cict2", "twb03", "gubt2", "gbkt2", "gbjt2",
               "gbrt2", "gbtt2", "gbvt2", "gbmt2", "gbst2", "gbdt2", "gbqt2",
               "gupt2", "smct2", "ea004", "ea006", "ea035") #this is the part that changes
 
@@ -977,7 +977,7 @@ colnames(synoptic.all.station.data) <- c("OBSERVATIONS.date_time", "OBSERVATIONS
 HADS <- c("CICT2", "GUBT2", "SMCT2")
 TWDB <- c("TWB03")
 EAA <- c("EA004", "EA006", "EA035")
-GBRA <- c("GBFT2", "GBKT2", "GBJT2", "GBRT2", "GBTT2", "GBVT2", "GBMT2", "GBST2", "GBDT2", "GBQT2")
+GBRA <- c("GBKT2", "GBJT2", "GBRT2", "GBTT2", "GBVT2", "GBMT2", "GBST2", "GBDT2", "GBQT2")
 RAWS <- c("GUPT2")
 
 
