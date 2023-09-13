@@ -986,6 +986,7 @@ RAWS <- c("GUPT2")
 
 # loop through sites and pull data
 for(i in 1:length(site.ids)) {
+  Sys.sleep(10)
   full_url2 <- paste0(base.pcp.url, site.ids[i], url_time_start, url_time_end, addl.pars.url, url_token)
   req <- httr::GET(full_url2, timeout(1500000))
   json <- httr::content(req, as = "text")
