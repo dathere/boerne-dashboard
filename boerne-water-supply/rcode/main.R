@@ -663,7 +663,7 @@ unzip("temp.zip", files=NULL, exdir="temp")
 #get day
 
 #get day
-d <- today()-2; 
+d <- today(); 
 print(d)                         
 d <- as.Date(d)
 prev.days <- seq(d-7,d,by='day');  
