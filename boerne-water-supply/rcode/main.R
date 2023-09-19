@@ -10,7 +10,7 @@
 #
 # DOWNLOADS AND CREATES GEOJSON FILES FOR MAP LAYERS IN THE WATER SUPPLY DASHBOARD
 # CREATED BY LAUREN PATTERSON @ THE INTERNET OF WATER. 
-# FEBRUARY 2021
+# FEBRUARY 2021 
 # MODIFIED MAY 2021 BY SOPHIA BRYSON FOR TEXAS
 #
 ########################################################################################################################################################
