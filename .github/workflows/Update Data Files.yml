@@ -1,5 +1,6 @@
 name: R script workflow
 on:
+  push:
   schedule:
     - cron: '0 13 * * 1-5'
 
