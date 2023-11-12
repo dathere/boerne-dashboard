@@ -1187,11 +1187,11 @@ noaa.all.station.data2 <- subset(noaa.all.station.data2, select=-c(pcp_mm))
 #
 #################################################################################################################################################################
 #data
-#new.all.station.data <- rbind(synoptic.all.station.data2, noaa.all.station.data2)
-new.all.station.data <- noaa.all.station.data2
-new.all.station.data <- new.all.station.data %>% mutate(date = as.Date(date)) # precaution to make sure all are in the same date format
-check.last.date <- new.all.station.data %>% group_by(id) %>% filter(date == max(date)) %>% dplyr::select(date)
-table(check.last.date$date)
+   new.all.station.data <- rbind(synoptic.all.station.data2, noaa.all.station.data2)
+   new.all.station.data <- new.all.station.data %>% mutate(date = as.Date(date)) # precaution to make sure all are in the same date format
+   check.last.date <- new.all.station.data %>% group_by(id) %>% filter(date == max(date)) %>% dplyr::select(date)
+   table(check.last.date$date)
+   
 
 ##################################################################################################################################################################
 #
