@@ -946,7 +946,7 @@ current.year <-year(today);
 # Base URL & station ID list for API calls: 
 base.pcp.url <- "https://api.synopticdata.com/v2/stations/timeseries?stid=" #this is same for all sites
 site.ids <- c("cict2", "twb03", "gubt2", "gbkt2", "gbjt2",
-              "gbrt2", "gbtt2", "gbvt2", "gbmt2", "gbst2", "gbdt2", "gbqt2",
+              "gbrt2", "gbtt2", "gbvt2", "gbmt2", "gbst2", "gbqt2",
               "gupt2", "smct2", "ea004", "ea006", "ea035") #this is the part that changes
 
 start_date = "202201010000" # this is the format needed for the listed website above
