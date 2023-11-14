@@ -979,9 +979,9 @@ colnames(synoptic.all.station.data) <- c("OBSERVATIONS.date_time", "OBSERVATIONS
 # create a list of assigned stations to their agencies
 HADS <- c("CICT2", "GUBT2", "SMCT2")
 TWDB <- c("TWB03")
-EAA <- c("EA004", "EA006", "EA035")
-GBRA <- c("GBKT2", "GBJT2", "GBRT2", "GBTT2", "GBVT2", "GBMT2", "GBST2", "GBDT2", "GBQT2")
-RAWS <- c("GUPT2")
+EAA <- c("EA035")
+GBRA <- c("GBKT2", "GBJT2", "GBRT2", "GBTT2", "GBVT2", "GBMT2", "GBST2")
+
 
 
 # loop through sites and pull data
