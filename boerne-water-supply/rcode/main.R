@@ -1003,15 +1003,13 @@ for(i in 1:length(site.ids)) {
     api.station.data$station %in% HADS ~ "HADS",
     api.station.data$station %in% TWDB ~ "TWDB",
     api.station.data$station %in% EAA ~ "EAA",
-    api.station.data$station %in% GBRA ~ "GBRA",
-    api.station.data$station %in% RAWS ~ "RAWS"
+    api.station.data$station %in% GBRA ~ "GBRA"
   )
   api.station.metadata$agency <- case_when(
     api.station.metadata$STID %in% HADS ~ "HADS",
     api.station.metadata$STID %in% TWDB ~ "TWDB",
     api.station.metadata$STID %in% EAA ~ "EAA",
-    api.station.metadata$STID %in% GBRA ~ "GBRA",
-    api.station.metadata$STID %in% RAWS ~ "RAWS"
+    api.station.metadata$STID %in% GBRA ~ "GBRA"
   )
   # Now bind it up to save out
   synoptic.all.station.metadata <- rbind(synoptic.all.station.metadata, api.station.metadata)
