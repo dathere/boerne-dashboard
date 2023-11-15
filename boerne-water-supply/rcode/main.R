@@ -1329,7 +1329,7 @@ table(ytd.now$status, useNA="ifany")
 
 boerne.sites <- merge(sites, ytd.now[,c("id", "julian", "date", "year", "pcp_in", "status")], by.x="id", by.y="id", all=TRUE)
 geojson_write(boerne.sites, file = paste0(swd_data, "pcp/all_pcp_sites.geojson"))
-mapview::mapview(boerne.sites)
+
 
 ################################################################################################################################################################
 # remove all except for global environment 
