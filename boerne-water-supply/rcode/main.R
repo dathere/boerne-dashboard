@@ -946,7 +946,7 @@ current.year <-year(today);
 # Base URL & station ID list for API calls: 
 base.pcp.url <- "https://api.synopticdata.com/v2/stations/timeseries?stid=" #this is same for all sites
 site.ids <- c("cict2", "twb03", "gubt2", "gbkt2", "gbjt2",
-              "gbrt2", "gbtt2", "gbvt2", "gbmt2", "gbst2","ea035") #this is the part that changes
+              "gbrt2", "gbtt2", "gbvt2", "gbmt2", "gbst2","ea035", "ea004",  "gupt2", "smct2", "ea006", "gbdt2", "GBQT2") #this is the part that changes
 
 start_date = "202201010000" # this is the format needed for the listed website above
 end_date <- today()-1 #allow a one day lag time
@@ -979,9 +979,9 @@ colnames(synoptic.all.station.data) <- c("OBSERVATIONS.date_time", "OBSERVATIONS
 # create a list of assigned stations to their agencies
 HADS <- c("CICT2", "GUBT2", "SMCT2")
 TWDB <- c("TWB03")
-EAA <- c("EA035")
-GBRA <- c("GBKT2", "GBJT2", "GBRT2", "GBTT2", "GBVT2", "GBMT2", "GBST2")
-
+EAA <- c("EA004", "EA006", "EA035")
+GBRA <- c("GBKT2", "GBJT2", "GBRT2", "GBTT2", "GBVT2", "GBMT2", "GBST2", "GBDT2", "GBQT2")
+RAWS <- c("GUPT2")
 
 
 # loop through sites and pull data
@@ -1003,13 +1003,15 @@ for(i in 1:length(site.ids)) {
     api.station.data$station %in% HADS ~ "HADS",
     api.station.data$station %in% TWDB ~ "TWDB",
     api.station.data$station %in% EAA ~ "EAA",
-    api.station.data$station %in% GBRA ~ "GBRA"
+    api.station.data$station %in% GBRA ~ "GBRA",
+    api.station.data$station %in% RAWS ~ "RAWS"
   )
   api.station.metadata$agency <- case_when(
     api.station.metadata$STID %in% HADS ~ "HADS",
     api.station.metadata$STID %in% TWDB ~ "TWDB",
     api.station.metadata$STID %in% EAA ~ "EAA",
-    api.station.metadata$STID %in% GBRA ~ "GBRA"
+    api.station.metadata$STID %in% GBRA ~ "GBRA",
+    api.station.metadata$STID %in% RAWS ~ "RAWS"
   )
   # Now bind it up to save out
   synoptic.all.station.metadata <- rbind(synoptic.all.station.metadata, api.station.metadata)
