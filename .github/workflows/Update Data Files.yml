@@ -22,6 +22,10 @@ jobs:
     - name: Install system dependencies for R packages
       run: |
          apt-get install -y libudunits2-dev libproj-dev
+
+    - name: Update CA certificates
+      run: sudo update-ca-certificates
+
   
     - name: Run R script
       env:
