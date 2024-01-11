@@ -1435,7 +1435,7 @@ for(j in 1:length(tx.dist)){ #loop through districts
     location.id <- zt$Loc_ID[i]; location.id
     
     full_url <- paste0(baseURL, report_url, location.id, parameter_url)
-    api.data <- GET(full_url, timeout(15000)) #use httr library to avoid timeout #CAN INCREASE IF TIMING OUT
+    api.data <- GET(full_url, timeout(15000), httr::config(ssl_verifypeer = 0L))
     
     dam.data <- jsonlite::fromJSON(content(api.data, 'text'), simplifyVector = TRUE, flatten=TRUE) ##
     
