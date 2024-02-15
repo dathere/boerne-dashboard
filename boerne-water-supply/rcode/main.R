@@ -1062,7 +1062,7 @@ bkup <- noaa.stations;
 noaa.boerne.stations <- noaa.stations %>% filter(id=="USC00410902" | id=="USC00411429" | id=="USC00411433" | id=="USC00411434" | id=="USC00411920") #filter the specific site(s) of interest
 noaa.boerne.sites <- noaa.boerne.stations %>% filter(element == "PRCP")
 noaa.boerne.sites <- noaa.boerne.sites %>% filter(first_year <= 2015)
-noaa.boerne.sites <- noaa.boerne.sites %>% filter(last_year == 2023) 
+#noaa.boerne.sites <- noaa.boerne.sites %>% filter(last_year == 2023) 
 
 #Or if we want daily summaries
 # Fetch more information about location id FIPS:48
