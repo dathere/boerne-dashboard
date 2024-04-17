@@ -983,42 +983,49 @@ GBRA <- c("GBKT2", "GBJT2", "GBRT2", "GBTT2", "GBVT2", "GBMT2", "GBST2")
 RAWS <- c("GUPT2")
 
 
+
 # loop through sites and pull data
 for(i in 1:length(site.ids)) {
   full_url2 <- paste0(base.pcp.url, site.ids[i], url_time_start, url_time_end, addl.pars.url, url_token)
   req <- httr::GET(full_url2, timeout(1500000))
   json <- httr::content(req, as = "text")
   api.return <- fromJSON(json, flatten = TRUE)
-  api.station <- api.return$STATION
-  api.station.metadata <- subset(api.station, select=-c(16:24))
-  api.station.data <- subset(api.station, select=c(22:24))
-  api.station.data <- unnest(api.station.data, cols = c(OBSERVATIONS.date_time, OBSERVATIONS.precip_accumulated_set_1d, 
-                                                        OBSERVATIONS.precip_intervals_set_1d))
-  api.station.data$OBSERVATIONS.date_time <- as.Date(api.station.data$OBSERVATIONS.date_time)
-  #api.station.data <- do.call(rbind.data.frame, api.station.data)
-  api.station.data <- aggregate(.~OBSERVATIONS.date_time,data=api.station.data,FUN=sum)
-  api.station.data$station <- api.station.metadata[1,5]
-  api.station.data$agency <- case_when(
-    api.station.data$station %in% HADS ~ "HADS",
-    api.station.data$station %in% TWDB ~ "TWDB",
-    api.station.data$station %in% EAA ~ "EAA",
-    api.station.data$station %in% GBRA ~ "GBRA",
-    api.station.data$station %in% RAWS ~ "RAWS"
-  )
-  api.station.metadata$agency <- case_when(
-    api.station.metadata$STID %in% HADS ~ "HADS",
-    api.station.metadata$STID %in% TWDB ~ "TWDB",
-    api.station.metadata$STID %in% EAA ~ "EAA",
-    api.station.metadata$STID %in% GBRA ~ "GBRA",
-    api.station.metadata$STID %in% RAWS ~ "RAWS"
-  )
-  # Now bind it up to save out
-  synoptic.all.station.metadata <- rbind(synoptic.all.station.metadata, api.station.metadata)
-  synoptic.all.station.data <- rbind(synoptic.all.station.data, api.station.data)
   
-  # Keep an eye on the progress:
+  # Print the structure and JSON for debugging
+  print(str(api.return))
+  print(json)
+  
+  # Safely try to access data
+  if("STATION" %in% names(api.return)) {
+    api.station <- api.return$STATION
+    if("OBSERVATIONS" %in% names(api.station) && all(c("date_time", "precip_accumulated_set_1d", "precip_intervals_set_1d") %in% names(api.station$OBSERVATIONS))) {
+      api.station.data <- tidyr::unnest(api.station, cols = c(OBSERVATIONS.date_time, OBSERVATIONS.precip_accumulated_set_1d, 
+                                                              OBSERVATIONS.precip_intervals_set_1d))
+      api.station.data$OBSERVATIONS.date_time <- as.Date(api.station.data$OBSERVATIONS.date_time, format = "%Y-%m-%d")
+      # Aggregate data
+      api.station.data <- aggregate(.~OBSERVATIONS.date_time, data=api.station.data, FUN=sum)
+      # Assign station and agency
+      api.station.data$station <- api.station.metadata[1, "STID"] # Ensure STID is correct column name
+      api.station.data$agency <- dplyr::case_when(
+        api.station.data$station %in% HADS ~ "HADS",
+        api.station.data$station %in% TWDB ~ "TWDB",
+        api.station.data$station %in% EAA ~ "EAA",
+        api.station.data$station %in% GBRA ~ "GBRA",
+        api.station.data$station %in% RAWS ~ "RAWS"
+      )
+      # Combine data frames
+      synoptic.all.station.metadata <- rbind(synoptic.all.station.metadata, api.station.metadata)
+      synoptic.all.station.data <- rbind(synoptic.all.station.data, api.station.data)
+    } else {
+      print(paste("Missing 'OBSERVATIONS' or its sub-fields in the data for station: ", site.ids[i]))
+    }
+  } else {
+    print(paste("No 'STATION' data available in API return for station: ", site.ids[i]))
+  }
+  
   print(paste0("Completed pull for ", site.ids[i], ". ", round(i*100/length(site.ids), 2), "% complete."))
 }
+
 
 
 # clean new data
