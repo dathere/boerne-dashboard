@@ -661,7 +661,7 @@ download.file("https://droughtmonitor.unl.edu/data/shapefiles_m/USDM_current_M.z
 unzip("temp.zip", files=NULL, exdir="temp")
 
 #get day
-d <- today()-1; 
+d <- today(); 
 d <- as.Date(d)
 prev.days <- seq(d-7,d,by='day');  
 d <- prev.days[weekdays(prev.days)=='Tuesday'][1] 
@@ -774,7 +774,7 @@ if(nchar(month.url)==1) { month.url = paste0("0", month.url) }
 if(nchar(day.url)==1) { day.url = paste0("0", day.url) }
 
 
-url.used <- paste0("https://water.noaa.gov/resources/downloads/precip/stageIV/",year.url,"/",month.url,"/","15","/nws_precip_last7days_",year.url,month.url,"15","_conus.tif")
+url.used <- paste0("https://water.noaa.gov/resources/downloads/precip/stageIV/",year.url,"/",month.url,"/",day.url,"/nws_precip_last7days_",year.url,month.url,day.url,"_conus.tif")
 print(url.used)
 zt <- raster(url.used)
 #the data are provided as 4 bands in one raster. We are interested in Band 1 and Band 4
