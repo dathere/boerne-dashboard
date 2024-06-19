@@ -661,7 +661,7 @@ download.file("https://droughtmonitor.unl.edu/data/shapefiles_m/USDM_current_M.z
 unzip("temp.zip", files=NULL, exdir="temp")
 
 #get day
-d <- today(); 
+d <- today()-1; 
 d <- as.Date(d)
 prev.days <- seq(d-7,d,by='day');  
 d <- prev.days[weekdays(prev.days)=='Tuesday'][1] 
