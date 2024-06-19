@@ -661,13 +661,12 @@ download.file("https://droughtmonitor.unl.edu/data/shapefiles_m/USDM_current_M.z
 unzip("temp.zip", files=NULL, exdir="temp")
 
 #get day
-
-#get day
-d <- today(); 
+d <- today()-1; 
 d <- as.Date(d)
 prev.days <- seq(d-7,d,by='day');  
 d <- prev.days[weekdays(prev.days)=='Tuesday'][1] 
 d <- str_remove_all(d, "[-]");
+
 
 drought <- readOGR(paste0("temp"), paste0("USDM_",d)) %>% st_as_sf() %>% st_transform(crs = 4326) %>% rename(Name = DM) %>% select(Name, geometry) %>% mutate(Name = as.character(Name))
 geojson_write(drought, file = paste0(swd_data,"drought/current_drought.geojson"))
@@ -697,30 +696,49 @@ end.date <- paste0("12/31/", year(today))
 
 #create dataframe and pull new data
 drought.time <- as.data.frame(matrix(nrow=0, ncol=9)); colnames(drought.time) <- c("huc8","name","date","none","d0","d1","d2","d3","d4")
-for (m in 1:length(huc.list)){
-  full_url <-paste0("https://usdmdataservices.unl.edu/api/HUCStatistics/GetDroughtSeverityStatisticsByAreaPercent?aoi=",huc.list[m],"&startdate=",last.date,"&enddate=", end.date, "&statisticsType=1&hucLevel=8")
-  api.data <- GET(full_url, timeout(15000)) #use httr libirary to avoid timeout
-  df <- content(api.data, "parse")
-  
-  for (i in 1:length(df)){
-    zt.name <- as.character(subset(huc8, huc8==huc.list[m])$name) 
-    zt = tibble(
-      huc8 = as.character(huc.list[m]),
-      name = zt.name,
-      date = df[[i]]$ValidStart,
-      none = df[[i]]$None,
-      d0 = df[[i]]$D0,
-      d1 = df[[i]]$D1,
-      d2 = df[[i]]$D2,
-      d3 = df[[i]]$D3,
-      d4 = df[[i]]$D4
-    )
-    drought.time <- rbind(drought.time, zt)
-  }
-  #print(zt.name)
-  print(paste0(zt.name, ", ", round(m*100/length(huc.list), 2), "% complete"))
+drought.time <- as.data.frame(matrix(nrow=0, ncol=9))
+colnames(drought.time) <- c("huc8", "name", "date", "none", "d0", "d1", "d2", "d3", "d4")
+
+# Load necessary libraries
+library(httr)
+library(dplyr)
+library(tidyr)
+
+
+# Adjust the API call and parsing:
+for (m in 1:length(huc.list)) {
+    full_url <- paste0("https://usdmdataservices.unl.edu/api/HUCStatistics/GetDroughtSeverityStatisticsByAreaPercent?aoi=", huc.list[m], "&startdate=", last.date, "&enddate=", end.date, "&statisticsType=1&hucLevel=8")
+    api_response <- GET(full_url, timeout(15000))
+    df <- content(api_response, "parsed")
+    
+    # Check if df is not empty and has the expected structure
+    if (nrow(df) > 0 && "ValidStart" %in% names(df)) {
+        zt.name <- as.character(subset(huc8, huc8 == huc.list[m])$name)
+        
+        # Create a tibble from the entire df, repeating the name for each row
+        zt <- tibble(
+          huc8 = rep(as.character(huc.list[m]), nrow(df)),
+          name = rep(zt.name, nrow(df)),
+          date = df$ValidStart,
+          none = df$None,
+          d0 = df$D0,
+          d1 = df$D1,
+          d2 = df$D2,
+          d3 = df$D3,
+          d4 = df$D4
+        )
+        
+        # Append this tibble to the main drought.time data frame
+        drought.time <- rbind(drought.time, zt)
+    }
+    print(paste0(zt.name, ", ", round(m * 100 / length(huc.list), 2), "% complete"))
 }
+
+
 table(drought.time$huc8)
+# Print the column names of drought.time
+print(colnames(drought.time))
+
 
 #TAKES 25 SECONDS TO RUN FOR FULL YEAR... IN FUTURE WILL NEED TO SHORTEN
 drought2 <- drought.time %>% mutate(date = as.Date(date, "%Y-%m-%d"), none = as.numeric(none), d0 = as.numeric(d0), d1 = as.numeric(d1), d2 = as.numeric(d2), d3=as.numeric(d3), d4=as.numeric(d4)) %>% arrange(huc8, date)
@@ -755,8 +773,9 @@ year.url <- year(Sys.Date()); month.url <- month(Sys.Date()); day.url <- day(Sys
 if(nchar(month.url)==1) { month.url = paste0("0", month.url) }
 if(nchar(day.url)==1) { day.url = paste0("0", day.url) }
 
-url.used <- paste0("https://water.weather.gov/precip/downloads/",year.url,"/",month.url,"/",day.url,"/nws_precip_last7days_",year.url,month.url,day.url,"_conus.tif")
-#call data in as a raster
+
+url.used <- paste0("https://water.noaa.gov/resources/downloads/precip/stageIV/",year.url,"/",month.url,"/","15","/nws_precip_last7days_",year.url,month.url,"15","_conus.tif")
+print(url.used)
 zt <- raster(url.used)
 #the data are provided as 4 bands in one raster. We are interested in Band 1 and Band 4
 #Band 1 - Observation - Last 24 hours of QPE spanning 12Z to 12Z in inches
