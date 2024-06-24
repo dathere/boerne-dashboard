@@ -661,7 +661,7 @@ download.file("https://droughtmonitor.unl.edu/data/shapefiles_m/USDM_current_M.z
 unzip("temp.zip", files=NULL, exdir="temp")
 
 #get day
-d <- today()-1; 
+d <- today(); 
 d <- as.Date(d)
 prev.days <- seq(d-7,d,by='day');  
 d <- prev.days[weekdays(prev.days)=='Tuesday'][1] 
@@ -698,42 +698,42 @@ end.date <- paste0("12/31/", year(today))
 drought.time <- as.data.frame(matrix(nrow=0, ncol=9)); colnames(drought.time) <- c("huc8","name","date","none","d0","d1","d2","d3","d4")
 drought.time <- as.data.frame(matrix(nrow=0, ncol=9))
 colnames(drought.time) <- c("huc8", "name", "date", "none", "d0", "d1", "d2", "d3", "d4")
-
-# Load necessary libraries
 library(httr)
-library(dplyr)
-library(tidyr)
-
-
-# Adjust the API call and parsing:
+library(tibble)
+library(jsonlite)
+drought.time <- tibble()
 for (m in 1:length(huc.list)) {
-    full_url <- paste0("https://usdmdataservices.unl.edu/api/HUCStatistics/GetDroughtSeverityStatisticsByAreaPercent?aoi=", huc.list[m], "&startdate=", last.date, "&enddate=", end.date, "&statisticsType=1&hucLevel=8")
-    api_response <- GET(full_url, timeout(15000))
-    df <- content(api_response, "parsed")
-    
-    # Check if df is not empty and has the expected structure
+  full_url <- paste0("https://usdmdataservices.unl.edu/api/HUCStatistics/GetDroughtSeverityStatisticsByAreaPercent?aoi=", huc.list[m], "&startdate=", last.date, "&enddate=", end.date, "&statisticsType=1&hucLevel=8")
+  api_response <- GET(full_url, timeout(15000))
+  if (status_code(api_response) == 200) {
+    json_content <- content(api_response, "text")
+    df <- fromJSON(json_content)
     if (nrow(df) > 0 && "ValidStart" %in% names(df)) {
-        zt.name <- as.character(subset(huc8, huc8 == huc.list[m])$name)
-        
-        # Create a tibble from the entire df, repeating the name for each row
-        zt <- tibble(
-          huc8 = rep(as.character(huc.list[m]), nrow(df)),
-          name = rep(zt.name, nrow(df)),
-          date = df$ValidStart,
-          none = df$None,
-          d0 = df$D0,
-          d1 = df$D1,
-          d2 = df$D2,
-          d3 = df$D3,
-          d4 = df$D4
-        )
-        
-        # Append this tibble to the main drought.time data frame
-        drought.time <- rbind(drought.time, zt)
+      zt.name <- as.character(subset(huc8, huc8 == huc.list[m])$name)
+      # Create a tibble from the entire df, repeating the name for each row
+      zt <- tibble(
+        huc8 = rep(as.character(huc.list[m]), nrow(df)),
+        name = rep(zt.name, nrow(df)),
+        date = df$ValidStart,
+        none = df$None,
+        d0 = df$D0,
+        d1 = df$D1,
+        d2 = df$D2,
+        d3 = df$D3,
+        d4 = df$D4
+      )
+      # Append this tibble to the main drought.time data frame
+      drought.time <- rbind(drought.time, zt)
+      print(paste0(zt.name, ", ", round(m * 100 / length(huc.list), 2), "% complete"))
+    } else {
+      print(paste0("HUC ", huc.list[m], ", ", round(m * 100 / length(huc.list), 2), "% complete (no data)"))
     }
-    print(paste0(zt.name, ", ", round(m * 100 / length(huc.list), 2), "% complete"))
+  } else {
+    print(paste0("HUC ", huc.list[m], ", ", round(m * 100 / length(huc.list), 2), "% complete (error in API call)"))
+  }
 }
-
+# Check the result
+print(drought.time)
 
 table(drought.time$huc8)
 # Print the column names of drought.time
