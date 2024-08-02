@@ -701,39 +701,74 @@ colnames(drought.time) <- c("huc8", "name", "date", "none", "d0", "d1", "d2", "d
 library(httr)
 library(tibble)
 library(jsonlite)
+library(httr)
+library(tibble)
+library(readr)
+library(dplyr)
+
+options(warn = 2)  # Convert warnings to errors for more visibility
+debug_counter <- 0
+
 drought.time <- tibble()
+
 for (m in 1:length(huc.list)) {
   full_url <- paste0("https://usdmdataservices.unl.edu/api/HUCStatistics/GetDroughtSeverityStatisticsByAreaPercent?aoi=", huc.list[m], "&startdate=", last.date, "&enddate=", end.date, "&statisticsType=1&hucLevel=8")
+  
+  print(paste("Requesting URL:", full_url))
+  
   api_response <- GET(full_url, timeout(15000))
+  
+  print(paste("Status code:", status_code(api_response)))
+  print("Headers:")
+  print(headers(api_response))
+  
   if (status_code(api_response) == 200) {
-    json_content <- content(api_response, "text")
-    df <- fromJSON(json_content)
-    if (nrow(df) > 0 && "ValidStart" %in% names(df)) {
-      zt.name <- as.character(subset(huc8, huc8 == huc.list[m])$name)
-      # Create a tibble from the entire df, repeating the name for each row
-      zt <- tibble(
-        huc8 = rep(as.character(huc.list[m]), nrow(df)),
-        name = rep(zt.name, nrow(df)),
-        date = df$ValidStart,
-        none = df$None,
-        d0 = df$D0,
-        d1 = df$D1,
-        d2 = df$D2,
-        d3 = df$D3,
-        d4 = df$D4
-      )
-      # Append this tibble to the main drought.time data frame
-      drought.time <- rbind(drought.time, zt)
-      print(paste0(zt.name, ", ", round(m * 100 / length(huc.list), 2), "% complete"))
-    } else {
-      print(paste0("HUC ", huc.list[m], ", ", round(m * 100 / length(huc.list), 2), "% complete (no data)"))
-    }
+    csv_content <- content(api_response, "text")
+    
+    print("First 500 characters of response:")
+    print(substr(csv_content, 1, 500))
+    
+    tryCatch({
+      df <- read_csv(csv_content, show_col_types = FALSE)
+      print("CSV parsing successful. First few rows:")
+      print(head(df))
+      
+      if (nrow(df) > 0) {
+        zt.name <- as.character(subset(huc8, huc8 == huc.list[m])$name)
+        
+        zt <- df %>%
+          transmute(
+            huc8 = HUC,
+            name = zt.name,
+            date = as.Date(ValidStart),
+            none = None,
+            d0 = D0,
+            d1 = D1,
+            d2 = D2,
+            d3 = D3,
+            d4 = D4
+          )
+        
+        drought.time <- bind_rows(drought.time, zt)
+        
+        print(paste0(zt.name, ", ", round(m * 100 / length(huc.list), 2), "% complete"))
+      } else {
+        print("No data in the response")
+      }
+    }, error = function(e) {
+      print(paste("CSV parsing failed:", e$message))
+    })
   } else {
-    print(paste0("HUC ", huc.list[m], ", ", round(m * 100 / length(huc.list), 2), "% complete (error in API call)"))
+    print(paste("Error in API call. Status code:", status_code(api_response)))
   }
+  
+  debug_counter <- debug_counter + 1
+  if (debug_counter >= 5) break
 }
-# Check the result
-print(drought.time)
+
+print("Final drought.time data:")
+print(head(drought.time))
+print(paste("Total rows:", nrow(drought.time)))
 
 table(drought.time$huc8)
 # Print the column names of drought.time
