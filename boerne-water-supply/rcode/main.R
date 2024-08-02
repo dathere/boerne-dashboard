@@ -789,7 +789,6 @@ drought2 <- drought2 %>% arrange(huc8, date) %>% distinct()
 
 #save file
 write.csv(drought2, paste0(swd_data, "drought/all_percentAreaHUC.csv"))
-rm(drought, drought2, zt.name, zt, last.month, last.year, last.day, last.date, full_url, drought.time, df, old.drought, m, huc.list, i)
 
 ################################################################################################################################################
 #
