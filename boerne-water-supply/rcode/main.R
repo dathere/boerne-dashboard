@@ -967,20 +967,70 @@ f <- list.files(fold, include.dirs = F, full.names = T, recursive = T)
 file.remove(f)
 
 ######################### REPEAT FOR TEMPERATURE FORECAST #########################
-end_date_temp <- as.POSIXct(today)-1 #there is a one day lag time
-end_date_temp <- as.character(end_date_temp)
-end_date_temp <- gsub('\\s+', '', end_date_temp)
-end_date_temp <- gsub('-', '', end_date_temp)
-end_date_temp <- gsub(':', '', end_date_temp)
-end_date_temp <- substr(end_date_temp, 1,8)
+library(sf)
+library(dplyr)
+library(lubridate)
 
-download.file(paste0("https://ftp.cpc.ncep.noaa.gov/GIS/us_tempprcpfcst/610temp_",end_date_temp,".zip"), destfile="temp.zip")
+# Ensure the sf package is loaded
+if (!requireNamespace("sf", quietly = TRUE)) {
+  install.packages("sf")
+}
 
-# Unzip this file. You can do it with R (as below), or clicking on the object you downloaded.
-unzip("temp.zip", files=NULL, exdir="temp")
+# Set up the date
+end_date_temp <- today() - days(1)  # there is a one day lag time
+end_date_temp <- format(end_date_temp, "%Y%m%d")
 
-#get data
-pcp <- readOGR(paste0("temp"), paste0("610temp_", end_date_temp)) %>% st_as_sf() %>% st_transform(crs = 4326) %>% select(Prob, Cat, geometry) %>% rename(percentage = Prob, direction = Cat)
+# Print the date being used
+cat("Using date for temperature forecast:", end_date_temp, "\n")
+
+# Download the file
+download_url <- paste0("https://ftp.cpc.ncep.noaa.gov/GIS/us_tempprcpfcst/610temp_", end_date_temp, ".zip")
+tryCatch({
+  download.file(download_url, destfile = "temp.zip")
+  cat("Temperature forecast file downloaded successfully.\n")
+}, error = function(e) {
+  stop("Failed to download the temperature forecast file. Error: ", e$message)
+})
+
+# Unzip the file
+tryCatch({
+  unzip("temp.zip", exdir = "temp")
+  cat("Temperature forecast file unzipped successfully.\n")
+}, error = function(e) {
+  stop("Failed to unzip the temperature forecast file. Error: ", e$message)
+})
+
+# Read the spatial data
+tryCatch({
+  temp <- st_read(dsn = "temp", layer = paste0("610temp_", end_date_temp)) %>%
+    st_transform(crs = 4326) %>%
+    select(Prob, Cat, geometry) %>%
+    rename(percentage = Prob, direction = Cat)
+  
+  # Print the first few rows to verify the data
+  cat("Temperature forecast data read successfully. First few rows:\n")
+  print(head(temp))
+}, error = function(e) {
+  stop("Failed to read or process the temperature forecast spatial data. Error: ", e$message)
+})
+
+# Clean up temporary files
+unlink("temp", recursive = TRUE)
+file.remove("temp.zip")
+
+# Print a completion message
+cat("Temperature forecast processing completed.\n")
+
+# Optionally, you can save the processed data
+# st_write(temp, "processed_temperature_forecast.geojson")
+
+# Print summary of the data
+cat("\nSummary of the processed temperature forecast data:\n")
+print(summary(temp))
+
+# Print the structure of the data
+cat("\nStructure of the processed temperature forecast data:\n")
+str(temp)
 pcp <- pcp %>% mutate(colorVal = ifelse(percentage < 33, "white", "black")) %>% mutate(colorVal = ifelse(direction == "Above" & percentage >= 33 & percentage < 40, "#ffc4c4", colorVal)) %>% 
   mutate(colorVal = ifelse(direction == "Above" & percentage >= 40 & percentage < 50, "#ff7676", ifelse(direction == "Above" & percentage >= 50 & percentage < 60, "#ff2727", 
                                                                                                         ifelse(direction == "Above" & percentage >= 60 & percentage < 70, "#eb0000", ifelse(direction == "Above" & percentage >= 70 & percentage < 80, "#b10000", 
