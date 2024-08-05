@@ -874,18 +874,75 @@ rm(zt, zt1, zt4, pol, pol2, zt1.proj, zt4.proj)
 #          6-10 day precipitation and temperature outlooks
 #
 ####################################################################################################################################
-end_date_prcp <- as.POSIXct(today)-1 #there is a one day lag time
-end_date_prcp <- as.character(end_date_prcp)
-end_date_prcp <- gsub('\\s+', '', end_date_prcp)
-end_date_prcp <- gsub('-', '', end_date_prcp)
-end_date_prcp <- gsub(':', '', end_date_prcp)
-end_date_prcp <- substr(end_date_prcp, 1,8)
 
-download.file(paste0("https://ftp.cpc.ncep.noaa.gov/GIS/us_tempprcpfcst/610prcp_",end_date_prcp,".zip"), destfile="temp.zip")
-# Unzip this file. You can do it with R (as below), or clicking on the object you downloaded.
-unzip("temp.zip", files=NULL, exdir="temp")
-#get data
-pcp <- readOGR(paste0("temp"), paste0("610prcp_",end_date_prcp)) %>% st_as_sf() %>% st_transform(crs = 4326) %>% select(Prob, Cat, geometry) %>% rename(percentage = Prob, direction = Cat)
+# Load required libraries
+library(sf)
+library(dplyr)
+library(lubridate)
+
+# Ensure the sf package is loaded
+if (!requireNamespace("sf", quietly = TRUE)) {
+  install.packages("sf")
+}
+
+# Set up the date
+end_date_prcp <- today() - days(1)  # there is a one day lag time
+end_date_prcp <- format(end_date_prcp, "%Y%m%d")
+
+# Print the date being used
+cat("Using date:", end_date_prcp, "\n")
+
+# Download the file
+download_url <- paste0("https://ftp.cpc.ncep.noaa.gov/GIS/us_tempprcpfcst/610prcp_", end_date_prcp, ".zip")
+tryCatch({
+  download.file(download_url, destfile = "temp.zip")
+  cat("File downloaded successfully.\n")
+}, error = function(e) {
+  stop("Failed to download the file. Error: ", e$message)
+})
+
+# Unzip the file
+tryCatch({
+  unzip("temp.zip", exdir = "temp")
+  cat("File unzipped successfully.\n")
+}, error = function(e) {
+  stop("Failed to unzip the file. Error: ", e$message)
+})
+
+# Read the spatial data
+tryCatch({
+  pcp <- st_read(dsn = "temp", layer = paste0("610prcp_", end_date_prcp)) %>%
+    st_transform(crs = 4326) %>%
+    select(Prob, Cat, geometry) %>%
+    rename(percentage = Prob, direction = Cat)
+  
+  # Print the first few rows to verify the data
+  cat("Data read successfully. First few rows:\n")
+  print(head(pcp))
+}, error = function(e) {
+  stop("Failed to read or process the spatial data. Error: ", e$message)
+})
+
+
+# Print a completion message
+cat("Precipitation forecast processing completed.\n")
+
+# Optionally, you can save the processed data
+# st_write(pcp, "processed_precipitation_forecast.geojson")
+
+# Print summary of the data
+cat("\nSummary of the processed data:\n")
+print(summary(pcp))
+
+# Print the structure of the data
+cat("\nStructure of the processed data:\n")
+str(pcp)
+
+# Read the spatial data
+pcp <- st_read(dsn = "temp", layer = paste0("610prcp_", end_date_prcp)) %>%
+  st_transform(crs = 4326) %>%
+  select(Prob, Cat, geometry) %>%
+  rename(percentage = Prob, direction = Cat)
 pcp <- pcp %>% mutate(colorVal = ifelse(percentage < 33, "white", "black")) %>% mutate(colorVal = ifelse(direction == "Above" & percentage >= 33 & percentage < 40, "#d4f8d4", colorVal)) %>% 
   mutate(colorVal = ifelse(direction == "Above" & percentage >= 40 & percentage < 50, "#90ee90", ifelse(direction == "Above" & percentage >= 50 & percentage < 60, "#4ce44c", 
                                                                                                         ifelse(direction == "Above" & percentage >= 60 & percentage < 70, "#1ec31e", ifelse(direction == "Above" & percentage >= 70 & percentage < 80, "#169016", 
