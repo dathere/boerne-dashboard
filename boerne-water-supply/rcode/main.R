@@ -1150,11 +1150,7 @@ for(i in 1:length(site.ids)) {
   req <- httr::GET(full_url2, timeout(1500000))
   json <- httr::content(req, as = "text")
   api.return <- fromJSON(json, flatten = TRUE)
-  
-  # Print the structure and JSON for debugging
-  print(str(api.return))
-  print(json)
-  
+    
   # Safely try to access data
   if("STATION" %in% names(api.return)) {
     api.station <- api.return$STATION
@@ -1177,10 +1173,10 @@ for(i in 1:length(site.ids)) {
       synoptic.all.station.metadata <- rbind(synoptic.all.station.metadata, api.station.metadata)
       synoptic.all.station.data <- rbind(synoptic.all.station.data, api.station.data)
     } else {
-      print(paste("Missing 'OBSERVATIONS' or its sub-fields in the data for station: ", site.ids[i]))
+      print(paste("Missing 'OBSERVATIONS' or its sub-fields in the data for station: "))
     }
   } else {
-    print(paste("No 'STATION' data available in API return for station: ", site.ids[i]))
+    print(paste("No 'STATION' data available in API return for station: "))
   }
   
   print(paste0("Completed pull for ", site.ids[i], ". ", round(i*100/length(site.ids), 2), "% complete."))
@@ -1192,21 +1188,50 @@ for(i in 1:length(site.ids)) {
 # eliminate cummulative column 
 synoptic.all.station.data2 <- select(synoptic.all.station.data, c(1, 3, 4, 5))
 
-# rename columns
-synoptic.all.station.data2 <- rename(synoptic.all.station.data2, id = "station", date = "OBSERVATIONS.date_time", pcp_in = "OBSERVATIONS.precip_intervals_set_1d")
 
-# make sure there are no duplicates
+
+library(dplyr)
+library(lubridate)
+
+# Select relevant columns
+synoptic.all.station.data2 <- select(synoptic.all.station.data, c(1, 3, 4, 5))
+
+# Print structure to check column names and data types
+print("Structure of initial data:")
+str(synoptic.all.station.data2)
+
+# Rename columns
+synoptic.all.station.data2 <- rename(synoptic.all.station.data2, 
+                                     id = "station", 
+                                     date = "OBSERVATIONS.date_time", 
+                                     pcp_in = "OBSERVATIONS.precip_intervals_set_1d")
+
+
+# Remove duplicates
 synoptic.all.station.data2 <- unique(synoptic.all.station.data2[c("id", "date", "pcp_in")])
 
-#format dates
+
+
+# If date is not already in Date format, convert it
+if (!inherits(synoptic.all.station.data2$date, "Date")) {
+  synoptic.all.station.data2$date <- as.Date(synoptic.all.station.data2$date)
+}
+
+# Format dates
 synoptic.all.station.data2$year <- year(synoptic.all.station.data2$date)
 synoptic.all.station.data2$month <- month(synoptic.all.station.data2$date)
 synoptic.all.station.data2$day <- day(synoptic.all.station.data2$date)
-#synoptic.all.station.data2 <- synoptic.all.station.data2 %>% mutate(date = as.POSIXct(date, format = "%Y-%m-%d"))
 
-#check the last date
-check.last.date <- synoptic.all.station.data2 %>% filter(date == max(date)) %>% dplyr::select(date)
-table(check.last.date$date)
+# Print the range of dates to check if they're valid
+print("Range of dates:")
+range(synoptic.all.station.data2$date, na.rm = TRUE)
+
+# Check the last date
+check.last.date <- synoptic.all.station.data2 %>% 
+  filter(!is.na(date)) %>%
+  filter(date == max(date, na.rm = TRUE)) %>% 
+  dplyr::select(date)
+
 
 ##################################################################################################################################################################
 #
