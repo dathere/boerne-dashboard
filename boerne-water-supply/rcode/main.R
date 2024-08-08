@@ -1222,15 +1222,7 @@ synoptic.all.station.data2$year <- year(synoptic.all.station.data2$date)
 synoptic.all.station.data2$month <- month(synoptic.all.station.data2$date)
 synoptic.all.station.data2$day <- day(synoptic.all.station.data2$date)
 
-# Print the range of dates to check if they're valid
-print("Range of dates:")
-range(synoptic.all.station.data2$date, na.rm = TRUE)
 
-# Check the last date
-check.last.date <- synoptic.all.station.data2 %>% 
-  filter(!is.na(date)) %>%
-  filter(date == max(date, na.rm = TRUE)) %>% 
-  dplyr::select(date)
 
 
 ##################################################################################################################################################################
