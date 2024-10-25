@@ -1177,12 +1177,51 @@ dat.all <- dat.a
 
 #filter and format data 
 dat1 <- dat.all
-dat <- dat1 %>% filter(year >= 1990) %>%  filter(element == "PRCP")
+# First transformation remains the same
+dat <- dat1 %>% 
+  filter(year >= 1990) %>% 
+  filter(element == "PRCP")
 
-dat2 <- dat %>% select(id, year, month, values) %>% gather(key = "day", value = "precip", -id, -year, -month)
-dat3 <- dat %>% select(id, year, month, all_of(mflag)) %>% gather(key = "day", value = "mflag", -id, -year, -month)
-dat4 <- dat %>% select(id, year, month, all_of(qflag)) %>% gather(key = "day", value = "qflag", -id, -year, -month)
-dat5 <- dat %>% select(id, year, month, all_of(sflag)) %>% gather(key = "day", value = "sflag", -id, -year, -month)
+# For values/precip
+dat2 <- dat %>% 
+  select(id, year, month, starts_with("value")) %>% 
+  pivot_longer(
+    cols = starts_with("value"),
+    names_to = "day",
+    values_to = "precip",
+    names_prefix = "value"
+  )
+
+# For mflag
+dat3 <- dat %>% 
+  select(id, year, month, starts_with("mflag")) %>% 
+  pivot_longer(
+    cols = starts_with("mflag"),
+    names_to = "day",
+    values_to = "mflag",
+    names_prefix = "mflag"
+  )
+
+# For qflag
+dat4 <- dat %>% 
+  select(id, year, month, starts_with("qflag")) %>% 
+  pivot_longer(
+    cols = starts_with("qflag"),
+    names_to = "day",
+    values_to = "qflag",
+    names_prefix = "qflag"
+  )
+
+# For sflag
+dat5 <- dat %>% 
+  select(id, year, month, starts_with("sflag")) %>% 
+  pivot_longer(
+    cols = starts_with("sflag"),
+    names_to = "day",
+    values_to = "sflag",
+    names_prefix = "sflag"
+  )
+
 
 dat <- cbind(dat2,dat3$mflag,dat4$qflag, dat5$sflag);  colnames(dat) <- c("id", "year", "month","day", "precip", "mflag", "qflag", "sflag")
 table(dat$mflag); #t means trace precip
@@ -1220,8 +1259,10 @@ noaa.all.station.metadata$agency <- "NOAA"
 noaa.all.station.metadata2 <- subset(noaa.all.station.metadata, select=-c(7, 8, 9))
 
 #rename columns and minimize
-noaa.all.station.data <- boerne.data %>% select(id, date, precip) %>% mutate(precip = as.numeric(precip))
-colnames(noaa.all.station.data) <- c("id", "date", "pcp_in")
+cols_to_select <- c("id", "date", "precip")
+noaa.all.station.data <- boerne.data %>% 
+  select(all_of(cols_to_select)) %>%
+  mutate(precip = as.numeric(precip))
 
 #convert date into year, month, day
 noaa.all.station.data <- noaa.all.station.data %>% mutate(date = as.Date(date, format="%Y-%m-%d"), year = year(date), month = month(date), day = day(date))
