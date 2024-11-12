@@ -13,7 +13,8 @@ docker build -f boerne-water-supply/Dockerfile --force-rm -t boerne .
 docker run -d boerne
 ```
 
-4. Run the image at `localhost:3000`.
+4. Run the image at `localhost:3000`:
+
 
 ```bash
 docker run -p 3000:80 boerne
