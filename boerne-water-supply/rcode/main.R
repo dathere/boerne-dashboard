@@ -1263,6 +1263,8 @@ cols_to_select <- c("id", "date", "precip")
 noaa.all.station.data <- boerne.data %>% 
   select(all_of(cols_to_select)) %>%
   mutate(precip = as.numeric(precip))
+#rename columns and minimize
+colnames(noaa.all.station.data) <- c("id", "date", "pcp_in")
 
 #convert date into year, month, day
 noaa.all.station.data <- noaa.all.station.data %>% mutate(date = as.Date(date, format="%Y-%m-%d"), year = year(date), month = month(date), day = day(date))
